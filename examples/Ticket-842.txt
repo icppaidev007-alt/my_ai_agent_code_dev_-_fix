@@ -1,0 +1,51 @@
+Windows 10, C++ application embedding muParser
+
+Title:
+Incorrect results for power expressions
+
+Description:
+We are encountering incorrect calculation results in our reporting module, which uses muParser to evaluate user-defined mathematical formulas.
+
+The power operator (^) is producing incorrect results for some expressions.
+
+Examples:
+
+1. Expression: (-3)^2
+   Expected: 9
+   Actual: 0.125
+
+2. Expression: 2^2^3
+   Expected: 256
+   Actual: 81
+
+3. Expression: 10^log10(5)
+   Expected: 5
+   Actual: approximately 0.0278
+
+The issue appears to be related to expressions containing numerical values directly in the expression string.
+
+For comparison, expressions using variables can produce the expected result. For example, when variables a=2 and b=3 are supplied by the application, evaluating:
+
+a^b
+
+returns 8.
+
+However:
+
+2^3
+
+returns 9.
+
+Expected Behavior:
+Power expressions should produce mathematically correct results.
+
+Actual Behavior:
+Several power expressions produce incorrect results.
+
+Steps to Reproduce:
+1. Build the muParser project using CMake.
+2. Run the existing test suite.
+3. Observe the failures involving power expressions.
+
+Request:
+Please investigate the issue, determine the root cause, implement an appropriate fix, and verify that the existing test suite passes after the fix.
